@@ -1,0 +1,113 @@
+application {
+  config {
+    baseName auth,
+    packageName com.fi.developer.order,
+    applicationType uaa,
+    uaaBaseName "auth",
+    prodDatabaseType mssql,
+    buildTool maven,
+    serviceDiscoveryType eureka
+  }
+}
+
+application {
+  config {
+    baseName gateway,
+    packageName com.fi.developer.gateway,
+    applicationType gateway,
+    authenticationType uaa,
+    uaaBaseName "auth",
+    prodDatabaseType postgresql,
+    buildTool maven,
+    serviceDiscoveryType eureka,
+    testFrameworks [protractor]
+  }
+  entities Product, Cart, Order
+}
+
+application {
+  config {
+    baseName store,
+    packageName com.fi.developer.store,
+    applicationType microservice,
+    authenticationType uaa,
+    uaaBaseName "auth",
+    databaseType mongodb,
+    devDatabaseType mongodb,
+    prodDatabaseType mongodb,
+    enableHibernateCache false,
+    serverPort 8081,
+    buildTool maven,
+    serviceDiscoveryType eureka
+  }
+  entities Product
+}
+
+application {
+  config {
+    baseName cart,
+    packageName com.fi.developer.cart,
+    applicationType microservice,
+    authenticationType uaa,
+    uaaBaseName "auth",
+    databaseType mongodb,
+    devDatabaseType mongodb,
+    prodDatabaseType mongodb,
+    enableHibernateCache false,
+    serverPort 8082,
+    buildTool maven,
+    serviceDiscoveryType eureka
+  }
+  entities Product
+}
+
+application {
+  config {
+    baseName order,
+    packageName com.fi.developer.order,
+    applicationType microservice,
+    authenticationType uaa,
+    uaaBaseName "auth",
+    databaseType mongodb,
+    devDatabaseType mongodb,
+    prodDatabaseType mongodb,
+    enableHibernateCache false,
+    serverPort 8083,
+    buildTool maven,
+    serviceDiscoveryType eureka
+  }
+  entities Product
+}
+
+
+entity Product {
+  title String required,
+  amount Integer,
+  price BigDecimal required min(0),
+}
+
+entity Cart {
+  userName String,
+  productTitle String,
+  amount Integer
+}
+
+entity Order {
+	id Integer,
+	deviliveryStatus String,
+    productTitle String,
+}
+
+
+paginate Order, Product with pagination
+
+microservice Product with store
+
+
+// will be created under 'docker-compose' folder
+deployment {
+  deploymentType docker-compose
+  appsFolders [gateway, cart, store, order]
+  dockerRepositoryName "jmicro"
+  consoleOptions [zipkin]
+}

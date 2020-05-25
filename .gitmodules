@@ -1,0 +1,15 @@
+[submodule "auth"]
+	path = auth
+	url = https://github.com/antey13/auth
+[submodule "cart"]
+	path = cart
+	url = https://github.com/antey13/cart
+[submodule "gateway"]
+	path = gateway
+	url = https://github.com/antey13/gateway
+[submodule "order"]
+	path = order
+	url = https://github.com/antey13/order
+[submodule "shop"]
+	path = shop
+	url = https://github.com/antey13/shop
