@@ -10,6 +10,6 @@
 [submodule "order"]
 	path = order
 	url = https://github.com/antey13/order
-[submodule "shop"]
-	path = shop
+[submodule "store"]
+	path = store
 	url = https://github.com/antey13/shop
