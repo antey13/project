@@ -4,7 +4,7 @@
     "gatewayType": "zuul",
     "monitoring": "no",
     "directoryPath": "../",
-    "appsFolders": ["gateway", "cart", "store", "order"],
+    "appsFolders": ["auth", "gateway", "cart", "store", "order"],
     "clusteredDbApps": [],
     "consoleOptions": [],
     "serviceDiscoveryType": "eureka",

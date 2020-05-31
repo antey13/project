@@ -1,10 +1,8 @@
 application {
   config {
     baseName auth,
-    packageName com.fi.developer.order,
+    packageName com.fi.developer.auth,
     applicationType uaa,
-    uaaBaseName "auth",
-    prodDatabaseType mssql,
     buildTool maven,
     serviceDiscoveryType eureka
   }
@@ -58,7 +56,7 @@ application {
     buildTool maven,
     serviceDiscoveryType eureka
   }
-  entities Product
+  entities Cart
 }
 
 application {
@@ -76,7 +74,7 @@ application {
     buildTool maven,
     serviceDiscoveryType eureka
   }
-  entities Product
+  entities Order
 }
 
 
@@ -99,15 +97,17 @@ entity Order {
 }
 
 
-paginate Order, Product with pagination
+paginate Order, Product, Cart with pagination
 
 microservice Product with store
+microservice Cart with cart
+microservice Order with order
 
 
 // will be created under 'docker-compose' folder
 deployment {
   deploymentType docker-compose
-  appsFolders [gateway, cart, store, order]
+  appsFolders [auth, gateway, cart, store, order]
   dockerRepositoryName "jmicro"
   consoleOptions [zipkin]
 }

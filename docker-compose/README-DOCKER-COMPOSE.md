@@ -12,6 +12,8 @@ Launch all your infrastructure by running: `docker-compose up -d`.
 
 ### Applications and dependencies:
 
+- auth (uaa application)
+- auth's mysql database
 - gateway (gateway application)
 - gateway's postgresql database
 - cart (microservice application)
