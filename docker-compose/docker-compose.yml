@@ -1,5 +1,24 @@
 version: '2'
 services:
+  auth:
+    image: auth
+    environment:
+      - _JAVA_OPTIONS=-Xmx512m -Xms256m
+      - 'SPRING_PROFILES_ACTIVE=prod,swagger'
+      - MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED=true
+      - 'EUREKA_CLIENT_SERVICE_URL_DEFAULTZONE=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/eureka'
+      - 'SPRING_CLOUD_CONFIG_URI=http://admin:$${jhipster.registry.password}@jhipster-registry:8761/config'
+      - 'SPRING_DATASOURCE_URL=jdbc:mysql://auth-mysql:3306/auth?useUnicode=true&characterEncoding=utf8&useSSL=false&createDatabaseIfNotExist=true'
+      - JHIPSTER_SLEEP=30
+      - JHIPSTER_REGISTRY_PASSWORD=admin
+  auth-mysql:
+    image: 'mysql:8.0.19'
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=auth
+    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+
   gateway:
     image: gateway
     environment:
@@ -32,7 +51,7 @@ services:
       - JHIPSTER_SLEEP=30
       - JHIPSTER_REGISTRY_PASSWORD=admin
   cart-mongodb:
-    image: 'mongo:4.2.6'
+    image: 'mongo:4.2.3'
 
   store:
     image: store
@@ -47,7 +66,7 @@ services:
       - JHIPSTER_SLEEP=30
       - JHIPSTER_REGISTRY_PASSWORD=admin
   store-mongodb:
-    image: 'mongo:4.2.6'
+    image: 'mongo:4.2.3'
 
   order:
     image: order
@@ -62,7 +81,7 @@ services:
       - JHIPSTER_SLEEP=30
       - JHIPSTER_REGISTRY_PASSWORD=admin
   order-mongodb:
-    image: 'mongo:4.2.6'
+    image: 'mongo:4.2.3'
 
   jhipster-registry:
     extends:
